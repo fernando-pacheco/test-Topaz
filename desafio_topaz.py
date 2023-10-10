@@ -14,7 +14,7 @@ class User():
         return f'Username: {self.username}\nURL do Perfil: {self.url_perfil}\nE-mail: {self.email}\nQuantidade de Repositórios Públicos: {self.qtd_repos}\nSeguidores: {self.seguidores}\nSeguindo: {self.seguindo}'
 
 def get_user(username):
-    # URL apra request
+    # URL para request
     url_api = f'https://api.github.com/users/{username}'
 
     # Request status code: 200 para usuário, 404 para notFound
