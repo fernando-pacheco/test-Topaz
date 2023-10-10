@@ -20,22 +20,23 @@ def get_user(username):
     # Request status code: 200 para usuário, 404 para notFound
     response = requests.get(url_api)
     if response.status_code == 200:
+        json = response.json()
         # Determinar a quantidade de repos públicos do usuário
         repos_url = f'https://api.github.com/users/{username}/repos'
 
         # Retorna a contagem dos elementos da lista de dicionários gerada pela request = 'public_repos'
         qtd_repos = len(requests.get(repos_url).json())
 
-        if response['email'] == None:
-            response['email'] = '-----'
+        if json['email'] == None:
+            json['email'] = '-----'
 
         return User(
-            username=response['login'],
-            url_perfil=response['html_url'],
-            email=response['email'],
+            username=json['login'],
+            url_perfil=json['html_url'],
+            email=json['email'],
             qtd_repos=qtd_repos,
-            seguidores=response['followers'],
-            seguindo=response['following']
+            seguidores=json['followers'],
+            seguindo=json['following']
             )
     
     return response
@@ -83,7 +84,4 @@ def get_user_report(username):
 
         return leitura
 
-    return user       
-
-usuario = 'xiaoyifang'
-print(get_user(usuario))
+    return user
