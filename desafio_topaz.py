@@ -1,4 +1,3 @@
-import unittest
 import requests
 
 
@@ -14,20 +13,13 @@ class User():
     def __str__(self):
         return f'Username: {self.username}\nURL do Perfil: {self.url_perfil}\nE-mail: {self.email}\nQuantidade de Repositórios Públicos: {self.qtd_repos}\nSeguidores: {self.seguidores}\nSeguindo: {self.seguindo}'
 
-
-def validacao_username(username):
+def get_user(username):
     # URL apra request
     url_api = f'https://api.github.com/users/{username}'
 
     # Request status code: 200 para usuário, 404 para notFound
     response = requests.get(url_api)
     if response.status_code == 200:
-        return response.json()
-
-def get_user(username):
-    response = validacao_username(username)
-    
-    if response:
         # Determinar a quantidade de repos públicos do usuário
         repos_url = f'https://api.github.com/users/{username}/repos'
 
@@ -49,10 +41,10 @@ def get_user(username):
     return response
 
 def get_user_repos(username):
-    response = validacao_username(username)
-
-    # Caso seja válido
-    if response:
+    # Mesmo passo do método anterior
+    url_api = f'https://api.github.com/users/{username}'
+    response = requests.get(url_api)
+    if response.status_code == 200:
         # Request
         repos_url = f'https://api.github.com/users/{username}/repos'
         request = requests.get(repos_url).json()
@@ -92,12 +84,6 @@ def get_user_report(username):
         return leitura
 
     return user       
-    
 
-
-usuario = 'ximbinha4210'
-report = get_user_report(usuario)
-if report:
-    print(report)
-else:
-    print('404 - not Found')
+usuario = 'xiaoyifang'
+print(get_user(usuario))
