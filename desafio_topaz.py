@@ -85,3 +85,6 @@ def get_user_report(username):
         return leitura
 
     return user
+
+
+print(get_user_report('fernando-pacheco'))
